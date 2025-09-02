@@ -1,0 +1,1 @@
+/Users/silascoley/sandbox/my_first_rust_project/silas_ecommerse_features/target/debug/silas_ecommerse_features: /Users/silascoley/sandbox/my_first_rust_project/silas_ecommerse_features/src/lib.rs /Users/silascoley/sandbox/my_first_rust_project/silas_ecommerse_features/src/main.rs
