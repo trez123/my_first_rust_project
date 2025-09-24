@@ -1,19 +1,34 @@
+use actix_web::{App, HttpServer};
+use utoipa::OpenApi;
+use utoipa_swagger_ui::SwaggerUi;
 
-use photon_rs::native::{open_image, save_image};
-use photon_rs::transform::{crop, resize, SamplingFilter};
+mod routes;
 
-fn main() {
-    let mut img = open_image("input.jpg").expect("Failed to open image");
+#[derive(OpenApi)]
+#[openapi(
+    paths(
+        routes::hello,
+        routes::echo,
+        routes::manual_hello
+    ),
+    components(
+        schemas(routes::EchoRequest)
+    )
+)]
+struct ApiDoc;
 
-    let (width, height) = (img.get_width(), img.get_height());
-
-    let scale = 800.0 / width.min(height) as f32;
-    let new_width = (width as f32 * scale) as u32;
-    let new_height = (height as f32 * scale) as u32;
-    let mut img = resize(&mut img, new_width, new_height, SamplingFilter::Lanczos3);
-
-    let crop_x = (new_width - 800) / 2;
-    let crop_y = (new_height - 800) / 2;
-    let img = crop(&mut img, crop_x, crop_y, 800, 800);
-    save_image(img, "output_800x800.jpg").expect("Failed to save image");
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+            // Register all routes from the routes module
+            .configure(routes::configure)
+            .service(
+                SwaggerUi::new("/swagger-ui/{_:.*}")
+                    .url("/api-docs/openapi.json", ApiDoc::openapi()),
+            )
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }

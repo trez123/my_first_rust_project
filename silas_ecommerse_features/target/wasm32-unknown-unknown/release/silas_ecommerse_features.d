@@ -1,1 +1,0 @@
-/Users/silascoley/sandbox/my_first_rust_project/silas_ecommerse_features/target/wasm32-unknown-unknown/release/silas_ecommerse_features.wasm: /Users/silascoley/sandbox/my_first_rust_project/silas_ecommerse_features/src/lib.rs
