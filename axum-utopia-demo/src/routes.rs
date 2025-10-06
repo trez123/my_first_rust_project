@@ -27,7 +27,14 @@ use crate::{models, repositories::{state::AppState, user::UserRepository}};
         (name = "Greet", description = "Greeting endpoints"),
         (name = "Users", description = "User management endpoints")
     ),
-    info(title = "Axum Diesel Example API", version = "1.0.0",)
+    info(
+        title = "Axum Diesel Example API", 
+        version = "1.0.0",
+        license(
+            name = "MIT",
+            url = "https://opensource.org/licenses/MIT",
+        )
+    )
 )]
 struct ApiDoc;
 
@@ -39,7 +46,6 @@ pub fn create_router(pool: DbPool) -> Router {
     let api_doc = ApiDoc::openapi();
     let app_state =  AppState { user_repo };
     Router::new()
-        // Greet handler is not implemented in the provided code, so let's assume it exists.
         .route("/greet", get(greet))
         .route("/users", get(get_all_users))
         .route("/users", post(create_user_handler))
