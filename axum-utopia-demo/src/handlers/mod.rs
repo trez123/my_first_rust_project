@@ -1,2 +1,2 @@
-pub mod greet_handler;
-pub mod user_handler;
+pub mod greet;
+pub mod user;

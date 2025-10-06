@@ -3,9 +3,6 @@ use diesel_async::{AsyncPgConnection, pooled_connection::AsyncDieselConnectionMa
 use dotenvy::dotenv;
 use std::env;
 
-// Type alias for the deadpool pool with AsyncPgConnection
-// Note that deadpool's Pool is already parameterized with the connection type.
-// We just need to define the full type.
 pub type DbPool = Pool<AsyncPgConnection>;
 
 pub async fn create_pool() -> Result<DbPool, BuildError> {
